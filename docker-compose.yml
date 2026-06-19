@@ -1,0 +1,44 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: go2db
+      MYSQL_USER: go2user
+      MYSQL_PASSWORD: go2pwd
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  server:
+    build: ./server
+    container_name: server
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - "4000:4000"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: go2user
+      DB_PASS: go2pwd
+      DB_NAME: go2db
+
+  client:
+    build: ./client
+    container_name: client
+    restart: always
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:4000/api
+
+volumes:
+  mysql_data:

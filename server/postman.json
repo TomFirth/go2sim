@@ -1,0 +1,45 @@
+{
+  "info": {
+    "_postman_id": "f46abe91-8d35-48a4-b83a-6c52fb94d950",
+    "name": "Go2Sim",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "18757393"
+  },
+  "item": [
+    {
+      "name": "Get Sims",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/sims",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Activate Sim",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/activate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "activate"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
