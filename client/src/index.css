@@ -1,0 +1,76 @@
+:root {
+  --bg: #111315;
+  --text: #FFFFFF;
+  --panel: #1A1D21;
+  --button-bg: #FF7A00;
+  --input-bg: #0F1113;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2 {
+  margin-top: 0;
+  font-weight: 600;
+}
+
+section {
+  background: var(--panel);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  gap: 12px;
+}
+
+form input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  color: var(--text);
+  background: var(--button-bg);
+  font-weight: 600;
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  overflow: hidden;
+}
+
+th {
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+th, td {
+  padding: 12px;
+}
+
+.error {
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.clearError {
+  margin-left: 10px;
+}
