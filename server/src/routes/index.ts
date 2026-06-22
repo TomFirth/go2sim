@@ -1,6 +1,6 @@
-const express = require("express");
-const { AppDataSource } = require("../data-source");
-const { SIMCard, SimStatus } = require("../entities/SIMCard");
+import express from "express";
+import AppDataSource from "../data-source";
+import { SIMCard, SimStatus } from "../entities/SIMCard";
 
 type Request = import("express").Request;
 type Response = import("express").Response;
@@ -74,4 +74,4 @@ function generatePhoneNumber() {
   return `07${random}`;
 }
 
-module.exports = router;
+export default router;

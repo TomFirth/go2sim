@@ -1,6 +1,6 @@
-require("reflect-metadata");
-const { DataSource } = require("typeorm");
-const { SIMCard } = require("./entities/SIMCard");
+import "reflect-metadata";
+import { DataSource } from "typeorm";
+import { SIMCard } from "./entities/SIMCard";
 
 const AppDataSource = new DataSource({
   type: "mysql",
@@ -16,4 +16,4 @@ const AppDataSource = new DataSource({
   logging: false
 });
 
-module.exports = { AppDataSource };
+export default AppDataSource;

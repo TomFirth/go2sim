@@ -1,9 +1,9 @@
 require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
 
-const { AppDataSource } = require("./data-source");
-const simRoutes = require("./routes");
+import AppDataSource from "./data-source";
+import simRoutes from "./routes";
 
 const app = express();
 

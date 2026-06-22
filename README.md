@@ -11,7 +11,7 @@ Solution built using the following technologies:
 ### Get started:
 
 ```bash
-docker compose up --build
+$ docker compose up --build
 ```
 
 [Open in browser](http://localhost:3000)
