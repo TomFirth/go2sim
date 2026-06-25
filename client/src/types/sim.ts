@@ -1,8 +1,10 @@
+export type SimStatus = "pending" | "active" | "failed";
+
 export interface SIMCard {
   id: number;
   iccid: string;
   phoneNumber: string | null;
-  status: "pending" | "active" | "failed";
+  status: SimStatus;
 }
 
 export interface ActivateSimRequest {

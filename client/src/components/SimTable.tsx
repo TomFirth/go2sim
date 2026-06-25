@@ -1,11 +1,5 @@
 import React from "react";
-
-export interface SIMCard {
-  id: number;
-  iccid: string;
-  phoneNumber: string | null;
-  status: "pending" | "active" | "failed";
-}
+import { SIMCard } from "../types/sim";
 
 interface Props {
   sims: SIMCard[];
@@ -20,10 +14,10 @@ const SimTable: React.FC<Props> = ({ sims }) => {
     <table>
       <thead>
         <tr>
-          <th align="left">ID</th>
-          <th align="left">ICCID</th>
-          <th align="left">Phone</th>
-          <th align="left">Status</th>
+          <th>ID</th>
+          <th>ICCID</th>
+          <th>Phone Number</th>
+          <th>Status</th>
         </tr>
       </thead>
 
@@ -33,19 +27,8 @@ const SimTable: React.FC<Props> = ({ sims }) => {
             <td>{sim.id}</td>
             <td>{sim.iccid}</td>
             <td>{sim.phoneNumber ?? "-"}</td>
-            <td>
-              <span
-                style={{
-                  color:
-                    sim.status === "active"
-                      ? "green"
-                      : sim.status === "failed"
-                      ? "red"
-                      : "orange"
-                }}
-              >
-                {sim.status}
-              </span>
+            <td className={`status-${sim.status}`}>
+              {sim.status}
             </td>
           </tr>
         ))}

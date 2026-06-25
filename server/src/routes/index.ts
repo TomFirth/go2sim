@@ -57,12 +57,6 @@ router.post("/activate", async (req: Request, res: Response) => {
   } catch (error: any) {
     console.error("Activate SIM error:", error);
 
-    if (error?.code === "ER_DUP_ENTRY") {
-      return res.status(409).json({
-        message: "SIM already exists"
-      });
-    }
-
     return res.status(500).json({
       message: "Activation failed"
     });

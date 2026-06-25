@@ -1,24 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { SIMCard, SimState, SimStatus } from "../types/sim";
 
-export type SimStatus = "pending" | "active" | "failed";
-
-export interface SIMCard {
-  id: number;
-  iccid: string;
-  phoneNumber: string | null;
-  status: SimStatus;
+export interface ExtendedSimState extends SimState {
+  filter: SimStatus | "all";
+  activationResult: SIMCard | null;
 }
 
-export interface SimState {
-  sims: SIMCard[];
-  loading: boolean;
-  error: string | null;
-}
-
-const initialState: SimState = {
+const initialState: ExtendedSimState = {
   sims: [],
   loading: false,
-  error: null
+  error: null,
+  filter: "all",
+  activationResult: null
 };
 
 const simSlice = createSlice({
@@ -44,19 +37,31 @@ const simSlice = createSlice({
     activateSimRequest(state, _action: PayloadAction<{ iccid: string }>) {
       state.loading = true;
       state.error = null;
+      state.activationResult = null;
     },
 
-    activateSimSuccess(state) {
+    activateSimSuccess(state, action: PayloadAction<SIMCard>) {
       state.loading = false;
+      state.sims = [action.payload, ...state.sims];
+      state.activationResult = action.payload;
     },
 
     activateSimFailure(state, action: PayloadAction<string>) {
       state.loading = false;
       state.error = action.payload;
+      state.activationResult = null;
     },
 
     clearError(state) {
       state.error = null;
+    },
+
+    clearResult(state) {
+      state.activationResult = null;
+    },
+
+    setFilter(state, action: PayloadAction<SimStatus | "all">) {
+      state.filter = action.payload;
     }
   }
 });
@@ -70,7 +75,9 @@ export const {
   activateSimSuccess,
   activateSimFailure,
 
-  clearError
+  clearError,
+  clearResult,
+  setFilter
 } = simSlice.actions;
 
 export default simSlice.reducer;

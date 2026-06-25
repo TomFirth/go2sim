@@ -1,49 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { activateSimRequest, clearError } from "../store/simSlice";
+import { activateSimRequest, clearError, clearResult } from "../store/simSlice";
+import ActivateForm from "../components/ActivateForm";
+import { ExtendedSimState } from "../store/simSlice";
 
 const ActivatePage = () => {
-  const [iccid, setIccid] = useState("");
-
   const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector((state) => state.sims);
+  const { loading, error, activationResult } = useAppSelector((state) => state.sims as ExtendedSimState);
 
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const trimmed = iccid.trim();
-
-    if (trimmed.length !== 19) {
-      alert("ICCID must be 19 digits");
-      return;
-    }
-
-    dispatch(activateSimRequest({ iccid: trimmed }));
-    setIccid("");
+  const handleSubmit = (iccid: string) => {
+    dispatch(activateSimRequest({ iccid }));
   };
 
   return (
     <div>
-      <h2>Activate SIM</h2>
+      <h2>Activate New SIM</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Enter 19-digit ICCID"
-          value={iccid}
-          onChange={(e) => setIccid(e.target.value)}
-          maxLength={19}
-        />
-
-        <button type="submit" disabled={loading}>
-          {loading ? "Activating..." : "Activate SIM"}
-        </button>
-      </form>
+      <ActivateForm loading={loading} onSubmit={handleSubmit} />
 
       {error && (
-        <div className="clearError">
-          {error}
-          <button onClick={() => dispatch(clearError())}>x</button>
+        <div className="banner banner-error">
+          <span>{error}</span>
+          <button className="close-btn" onClick={() => dispatch(clearError())}>✕</button>
+        </div>
+      )}
+
+      {activationResult && (
+        <div className={`banner banner-${activationResult.status === "active" ? "success" : "error"}`}>
+          <span>
+            SIM {activationResult.iccid} activation {activationResult.status}
+            {activationResult.phoneNumber && ` (Phone: ${activationResult.phoneNumber})`}
+          </span>
+          <button className="close-btn" onClick={() => dispatch(clearResult())}>✕</button>
         </div>
       )}
     </div>

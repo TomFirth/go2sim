@@ -1,23 +1,19 @@
 import { call, put, takeLatest, all } from "redux-saga/effects";
 import { simApi } from "../services/simApi";
-
 import {
   fetchSimsRequest,
   fetchSimsSuccess,
   fetchSimsFailure,
-
   activateSimRequest,
   activateSimSuccess,
   activateSimFailure
 } from "./simSlice";
-
 import { PayloadAction } from "@reduxjs/toolkit";
-import { SIMCard } from "./simSlice";
+import { SIMCard } from "../types/sim";
 
 function* fetchSimsSaga() {
   try {
     const data: SIMCard[] = yield call(simApi.fetchSims);
-
     yield put(fetchSimsSuccess(data));
   } catch (error: any) {
     yield put(fetchSimsFailure(error.message || "Failed to fetch SIMs"));
@@ -26,15 +22,11 @@ function* fetchSimsSaga() {
 
 function* activateSimSaga(action: PayloadAction<{ iccid: string }>) {
   try {
-    yield call(simApi.activateSim, action.payload);
+    const newSim: SIMCard = yield call(simApi.activateSim, action.payload);
 
-    yield put(activateSimSuccess());
-
-    yield put(fetchSimsRequest());
+    yield put(activateSimSuccess(newSim));
   } catch (error: any) {
-    yield put(
-      activateSimFailure(error.message || "Activation failed")
-    );
+    yield put(activateSimFailure(error.message || "Activation failed"));
   }
 }
 
