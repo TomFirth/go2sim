@@ -2,11 +2,10 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { activateSimRequest, clearError, clearResult } from "../store/simSlice";
 import ActivateForm from "../components/ActivateForm";
-import { ExtendedSimState } from "../store/simSlice";
 
 const ActivatePage = () => {
   const dispatch = useAppDispatch();
-  const { loading, error, activationResult } = useAppSelector((state) => state.sims as ExtendedSimState);
+  const { loading, error, activationResult } = useAppSelector(state => state.sims);
 
   const handleSubmit = (iccid: string) => {
     dispatch(activateSimRequest({ iccid }));

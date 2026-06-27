@@ -1,12 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { SIMCard, SimState, SimStatus } from "../types/sim";
+import { SIMCard, SimStatus, SimState } from "../types/sim";
 
-export interface ExtendedSimState extends SimState {
-  filter: SimStatus | "all";
-  activationResult: SIMCard | null;
-}
-
-const initialState: ExtendedSimState = {
+const initialState: SimState = {
   sims: [],
   loading: false,
   error: null,
@@ -70,11 +65,9 @@ export const {
   fetchSimsRequest,
   fetchSimsSuccess,
   fetchSimsFailure,
-
   activateSimRequest,
   activateSimSuccess,
   activateSimFailure,
-
   clearError,
   clearResult,
   setFilter

@@ -15,4 +15,6 @@ export interface SimState {
   sims: SIMCard[];
   loading: boolean;
   error: string | null;
+  filter: SimStatus | "all";
+  activationResult: SIMCard | null;
 }

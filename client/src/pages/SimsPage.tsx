@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { fetchSimsRequest, setFilter, ExtendedSimState } from "../store/simSlice";
+import { fetchSimsRequest, setFilter } from "../store/simSlice";
 import SimTable from "../components/SimTable";
 
 const SimsPage = () => {
   const dispatch = useAppDispatch();
-
-  const { sims, loading, filter } = useAppSelector((state) => state.sims as ExtendedSimState);
+  const { sims, loading, filter } = useAppSelector(state => state.sims);
 
   useEffect(() => {
     dispatch(fetchSimsRequest());
   }, [dispatch]);
 
-  const filteredSims = sims.filter((sim) =>
+  const filteredSims = sims.filter(sim =>
     filter === "all" ? true : sim.status === filter
   );
 
@@ -36,7 +35,7 @@ const SimsPage = () => {
       </div>
 
       {loading && sims.length === 0 ? (
-        <p>Loading SIM cards...</p>
+        <p>Loading...</p>
       ) : (
         <SimTable sims={filteredSims} />
       )}
