@@ -2,23 +2,17 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-
     "module": "node16",
     "target": "ES2022",
     "moduleResolution": "node16",
-
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-
     "strict": true,
     "skipLibCheck": true,
-
     "sourceMap": true,
-
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "declaration": false,
-    "types": ["node"],
     "strictPropertyInitialization": false
   },
 
